@@ -535,7 +535,7 @@ camera {
             light_code = light_code[:end] + '    shadowless\n' + light_code[end:]
         file.write( light_code )
 
-    cpos = 1.5*displayscale*canv.camera.pos # 1.5 is a not understood fudge factor
+    cpos = 10*displayscale*canv.camera.pos # 1.5 is a not understood fudge factor
     ctr = displayscale*canv.center
     cup = canv.up
     file.write( camera_template % { 'posx':cpos.x, 'posy':cpos.y, 'posz':cpos.z,
