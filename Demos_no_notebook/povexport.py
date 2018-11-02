@@ -112,7 +112,7 @@ def add_texture(a, code):
     if tex:
         start = code.rfind('pigment {')
         end = start + code[start:].find('}') + 1
-        code = code[:start] + tex + code[end:] 
+        code = code[:start] + tex + code[end:]
     return code
 
 def no_shadow(a):
@@ -146,7 +146,7 @@ sphere {
 }
 """
     object_code = sphere_template % { 'posx':displayscale*a.pos.x, 'posy':displayscale*a.pos.y, 'posz':displayscale*a.pos.z,
-                                      'radius':displayscale*a.radius, 'shininess':0.6, 
+                                      'radius':displayscale*a.radius, 'shininess':0.6,
                                       'red':a.red, 'green':a.green, 'blue':a.blue, 'transparency':transparency(a),
                                       'no_shadow':no_shadow(a), 'no_reflection':no_reflection(a)}
     object_code = add_texture(a, object_code)
@@ -386,7 +386,7 @@ def export_arrow(a):
                size=vec(hl,hw,hw), color=a.color, no_shadow=arrow_no_shadow,
                shininess=a.shininess,
                no_reflection=arrow_no_reflection, opacity=a.opacity, visible=False)
-    apyramid.axis = hl*a.axis.norm() 
+    apyramid.axis = hl*a.axis.norm()
     m1 = export_pyramid(apyramid)
     m1 = add_texture(a, m1)
 
@@ -535,13 +535,18 @@ camera {
             light_code = light_code[:end] + '    shadowless\n' + light_code[end:]
         file.write( light_code )
 
-    cpos = 10*displayscale*canv.camera.pos # 1.5 is a not understood fudge factor
+    # cpos = 1.5*displayscale*canv.camera.pos # 1.5 is a not understood fudge factor
+    cpos = vector(0, 65, 200)
+
     ctr = displayscale*canv.center
+    ctr = vector(20, 70, 0)
+
     cup = canv.up
     file.write( camera_template % { 'posx':cpos.x, 'posy':cpos.y, 'posz':cpos.z,
                                     'upx':cup.x, 'upy':cup.y, 'upz':cup.z,
                                     'pos2x':ctr.x, 'pos2y':ctr.y, 'pos2z':ctr.z,
-                                    'fov':canv.fov*180/pi } )
+                                    # 'fov':canv.fov*180/pi } )
+                                    'fov':0 } )
 
     for obj in canv.objects:
         key = obj.__class__
