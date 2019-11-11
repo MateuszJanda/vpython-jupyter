@@ -536,10 +536,12 @@ camera {
         file.write( light_code )
 
     # Camera location
-    cpos = vector(0, 0, 200)
+    cx = 0
+    cy = 70
+    cpos = vector(cx, cy, 230)
 
     # Camera look_at
-    ctr = vector(0, 10, 0)
+    ctr = vector(cx, cy, 0)
 
     cup = canv.up
     file.write( camera_template % { 'posx':cpos.x, 'posy':cpos.y, 'posz':cpos.z,
